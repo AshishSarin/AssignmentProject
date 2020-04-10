@@ -1,0 +1,1 @@
+export const POST_FETCH_INTERVAL = 10000; 

@@ -5,6 +5,8 @@ const initialState = {
     postList: [],
     isLoading: false,
     error: null,
+    page: 0,
+
 }
 
 const postReducer = (state = initialState, action) => {
@@ -12,17 +14,21 @@ const postReducer = (state = initialState, action) => {
         case CALL_GET_POSTS:
             console.log(action.type);
             return {
+                ...state,
                 isLoading: true,
                 error: null
             }
         case CALL_GET_POST_SUCCESS: 
-        console.log(action.type);
+        console.log(action.data.page);
             return {
+                ...state,
                 isLoading: false,
-                postList: action.data,
+                page: action.data?.page || 0,
+                postList: [...state.postList, ...action.data?.hits]
             }
         case CALL_GET_POST_FAILURE:
             return {
+                ...state,
                 isLoading: false,
                 error: action.error
             }

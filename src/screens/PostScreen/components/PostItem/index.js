@@ -1,15 +1,35 @@
 import React, { Component } from 'react'
-import { Text } from 'react-native'
-
+import { Text, TouchableOpacity } from 'react-native'
+import styles from './styles';
 export class PostItem extends Component {
     
     render() {
         const { data } = this.props;
         return (
-            <Text>
-                {data}
-            </Text>
+            <TouchableOpacity
+                onPress={this.onPressPostItem}
+                activeOpacity={0.5}
+                style={styles.container}>
+                <Text
+                    numberOfLines={3}
+                    style={styles.title}>{data?.title || ""}</Text>
+                <Text
+                    numberOfLines={3}
+                    style={styles.url}>{data?.url || ""}</Text>
+                <Text
+                    numberOfLines={3}
+                    style={styles.created_at}>{data?.created_at || ""}</Text>
+                <Text
+                    numberOfLines={3}
+                    style={styles.author}>{data?.author || ""}</Text>
+            </TouchableOpacity>
         )
+    }
+
+    onPressPostItem = () => {
+        const { data } = this.props;
+        // TODO: show a modal here
+        alert(data?.title || "No Title");
     }
 }
 

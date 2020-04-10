@@ -1,6 +1,6 @@
 import { connect } from "react-redux";
 import PostScreen from "../components/main";
-import { callGetPosts } from "../actions";
+import { callGetPosts, startPostFetching } from "../actions";
 
 const mapStateToProps = state => {
     return {
@@ -14,8 +14,10 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
     return {
         callGetPost: () => {
-            console.log('callGetPost');
             dispatch(callGetPosts());
+        },
+        startPostFetching: () => {
+            dispatch(startPostFetching());
         }
     }
 };

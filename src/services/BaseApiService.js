@@ -28,7 +28,7 @@ const callApi = (requestMethod, url, headers = getHeaders(), data) => {
 
     return fetch(`${HOST_URL}${url}`, requestInit)
         .then(response => {
-            console.log('response->', response.status);
+            console.log('response->', response);
             if (response.status === SUCCESS) {
                 return new Promise((resolve, reject) => {
 

@@ -1,11 +1,10 @@
 import React from 'react';
 import {
   SafeAreaView,
-  ScrollView,
   StatusBar,
-  Text,
+  StyleSheet,
 } from 'react-native';
-import PostScreen  from './screens/PostScreen/container/PostContainer';
+import PostScreen from './screens/PostScreen/container/PostContainer';
 
 
 class App extends React.Component {
@@ -13,12 +12,19 @@ class App extends React.Component {
     return (
       <>
         <StatusBar barStyle="dark-content" />
-        <SafeAreaView>
+        <SafeAreaView style={styles.container}>
           <PostScreen />
         </SafeAreaView>
       </>
     );
   }
 };
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    marginVertical: 12
+  }
+})
 
 export default App;
