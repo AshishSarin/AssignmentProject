@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
-import { Modal, TouchableOpacity } from 'react-native'
+import { Modal, TouchableOpacity, Text, View } from 'react-native'
+import styles from './styles';
 
 export class CustomModal extends Component {
     constructor(props) {
@@ -26,12 +27,27 @@ export class CustomModal extends Component {
 
     render() {
         return (
-            <Modal visible={this.state.isVisible}>
-                <TouchableOpacity
-                    onPress={this.closeModal}>
+            <Modal
+            animationType="slide"
+            transparent
+            visible={this.state.isVisible}
+        >
+            <View style={styles.modalParent}>
+                <TouchableOpacity style={styles.modalEmpty}
+                    onPress={this.closeModal}
+                />
+                <View style={styles.modalView}>
                     {this.props.children}
-                </TouchableOpacity>
-            </Modal>
+                    <TouchableOpacity
+                        onPress={this.closeModal}
+                        style={styles.closeBtn}>
+                            <Text onPress={this.closeModal}> 
+                                {`Close`}
+                            </Text>
+                    </TouchableOpacity>
+                </View>
+            </View>
+        </Modal>
         )
     }
 }

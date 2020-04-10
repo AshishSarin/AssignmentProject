@@ -23,5 +23,11 @@ export default StyleSheet.create({
     separator: {
         height: 10,
         backgroundColor: 'white'
+    },
+
+    modal: {
+        flex: 1,
+        paddingVertical: 32,
+        paddingHorizontal: 12
     }
 })

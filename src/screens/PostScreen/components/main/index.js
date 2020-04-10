@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Text, FlatList, ActivityIndicator, View } from 'react-native'
+import { Text, FlatList, ActivityIndicator, View, ScrollView } from 'react-native'
 import PostItem from '../PostItem';
 import Utils from '../../../../utils/Utils';
 import styles from './styles';
@@ -9,6 +9,10 @@ class PostScreen extends Component {
     constructor(props) {
         super(props);
         this.modalRef = React.createRef();
+        this.state = {
+            selectedItemIndex: -1
+        }
+
     }
 
     render() {
@@ -19,7 +23,6 @@ class PostScreen extends Component {
                 {this.renderModal()}
             </View>
         )
-
     }
 
     renderHeader = () => {
@@ -34,13 +37,19 @@ class PostScreen extends Component {
     }
 
     renderModal = () => {
-        return (
-            <CustomModal ref={this.modalRef}>
-                <Text>TestModal</Text>
-            </CustomModal>
-        )
+        if (Boolean(this.state.selectedItemIndex !== -1)) {
+            return (
+                <CustomModal ref={this.modalRef}>
+                    <ScrollView style={styles.modal}>
+                        <Text>
+                            {JSON.stringify(this.props.postList[this.state.selectedItemIndex])}
+                        </Text>
+                    </ScrollView>
+                </CustomModal>
+            )
+        }
     }
-            
+
 
     renderPostList = () => {
         const { postList } = this.props;
@@ -64,11 +73,11 @@ class PostScreen extends Component {
             // load more data only if no data is currently being fetched
             this.props.callGetPost();
         }
-        
+
     }
 
     renderSeparator = () => {
-        return <View style={styles.separator}/>
+        return <View style={styles.separator} />
     }
 
     renderEmptyList = () => {
@@ -82,19 +91,22 @@ class PostScreen extends Component {
     }
 
 
-    renderPostItem = ({ item }) => {
+    renderPostItem = ({ item, index }) => {
         return (
             <PostItem
+                itemIndex={index}
                 onPressPostItem={this.onPressPostItem}
                 data={item} />
         );
     }
 
-    onPressPostItem = (data) => {
+    onPressPostItem = (itemIndex) => {
         console.log('onPressPostItem')
-        // TODO: complete modal code
-        // and open modal here
-        // this.modalRef?.current?.showModal?.();
+        this.setState({
+            selectedItemIndex: itemIndex
+        }, () => {
+            this.modalRef?.current?.showModal?.();
+        })
     }
 
     componentWillUnmount() {
