@@ -29,7 +29,8 @@ export class PostItem extends Component {
     onPressPostItem = () => {
         const { data } = this.props;
         // TODO: show a modal here
-        alert(data?.title || "No Title");
+        this.props.onPressPostItem?.();
+        alert("Title: " + data?.title || "No Title");
     }
 }
 

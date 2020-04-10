@@ -3,14 +3,20 @@ import { Text, FlatList, ActivityIndicator, View } from 'react-native'
 import PostItem from '../PostItem';
 import Utils from '../../../../utils/Utils';
 import styles from './styles';
+import { CustomModal } from '../../../../commonComponents/CustomModal';
 
 class PostScreen extends Component {
+    constructor(props) {
+        super(props);
+        this.modalRef = React.createRef();
+    }
 
     render() {
         return (
             <View>
                 {this.renderHeader()}
                 {this.renderPostList()}
+                {this.renderModal()}
             </View>
         )
 
@@ -26,6 +32,15 @@ class PostScreen extends Component {
             </View>
         );
     }
+
+    renderModal = () => {
+        return (
+            <CustomModal ref={this.modalRef}>
+                <Text>TestModal</Text>
+            </CustomModal>
+        )
+    }
+            
 
     renderPostList = () => {
         const { postList } = this.props;
@@ -69,8 +84,17 @@ class PostScreen extends Component {
 
     renderPostItem = ({ item }) => {
         return (
-            <PostItem data={item} />
+            <PostItem
+                onPressPostItem={this.onPressPostItem}
+                data={item} />
         );
+    }
+
+    onPressPostItem = (data) => {
+        console.log('onPressPostItem')
+        // TODO: complete modal code
+        // and open modal here
+        // this.modalRef?.current?.showModal?.();
     }
 
     componentWillUnmount() {
